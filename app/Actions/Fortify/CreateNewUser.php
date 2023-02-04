@@ -1,0 +1,58 @@
+<?php
+
+namespace App\Actions\Fortify;
+
+use App\Actions\UserAvatar;
+use App\Actions\UsernameValidationRules;
+use App\Models\Role;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
+use Laravel\Fortify\Contracts\CreatesNewUsers;
+
+class CreateNewUser implements CreatesNewUsers
+{
+    use PasswordValidationRules, UsernameValidationRules;
+
+    /**
+     * Validate and create a newly registered user.
+     *
+     * @param  array  $input
+     * @return \App\Models\User
+     */
+    public function create(array $input)
+    {
+        Validator::make($input, [
+            'name' => [
+                'required',
+                'string',
+                'max:255'
+            ],
+            'email' => [
+                'required',
+                'string',
+                'email',
+                'max:255',
+                Rule::unique(User::class),
+            ],
+            // 'username' => $this->usernameRules(),
+            'password' => $this->passwordRules(),
+        ])->validate();
+
+        if (isset($input['avatar'])) {
+            $input['avatar'] = (new UserAvatar)->upload($input['avatar']);
+        }
+
+        Role::create([
+            'name' => $input['name'],
+            'redirect_to' => '/home',
+        ]);
+        return User::create([
+            'name' => $input['name'],
+            'email' => $input['email'],
+            'username' => $input['name'],
+            'password' => Hash::make($input['password']),
+        ]);
+    }
+}

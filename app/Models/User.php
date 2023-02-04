@@ -1,0 +1,82 @@
+<?php
+
+namespace App\Models;
+
+use Akunbeben\FortifyRole\Traits\HasRole;
+use App\Actions\UserAvatar;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Storage;
+use Laravel\Fortify\TwoFactorAuthenticatable;
+use Laravel\Sanctum\HasApiTokens;
+
+class User extends Authenticatable
+{
+    use HasApiTokens, HasFactory, Notifiable, TwoFactorAuthenticatable, HasRole;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'name',
+        'email',
+        'username',
+        'password',
+        'avatar',
+    ];
+
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array<int, string>
+     */
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
+
+    /**
+     * If the user avatar is empty, generate one using online service
+     *
+     * @return mixed|string
+     */
+    public function getAvatarUrl()
+    {
+        return ! empty($this->avatar) ?
+            (new UserAvatar)->get($this) :
+            config('avatar.service_url').'?name='.urlencode($this->name).'&color=fff&background='.substr(md5($this->name), 0, 6).'&size='.config('avatar.size');
+    }
+
+    /**
+     * Load user specific settings
+     *
+     * @param string $key
+     * @param null $default
+     * @return false|mixed
+     */
+    public function settings(string $key, $default = null)
+    {
+        settings()->setExtraColumns([
+            'user_id' => $this->id
+        ]);
+
+        if (settings()->has($key)) {
+            return settings()->get($key);
+        }
+
+        return $default;
+    }
+}
