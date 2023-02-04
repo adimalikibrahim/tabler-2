@@ -1,40 +1,41 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <!-- Meta Tags -->
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <link href="{{ mix('css/app.css') }}" rel="stylesheet" />
+<head>
+    <!-- Meta Tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 
-        {{ $css ?? '' }}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="{{ mix('css/app.css') }}" rel="stylesheet" />
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
-        @livewireStyles
-    </head>
+    {{ $css ?? '' }}
 
-    <body class="antialiased d-flex flex-column ">
-        <div class="page">
-            <x-header combine="0" sticky="1" overlap="0" vheader="0" />
+    <title>{{ config('app.name', 'Laravel') }}</title>
+    @livewireStyles
+</head>
 
-            <div class="page-wrapper">
-                <x-page-title
-                    :title="$title ?? ''"
-                    :pretitle="$pretitle ?? ''"
-                    :actions="$actions ?? ''"
-                    :subtitle="$subtitle ?? ''" />
+<body class="antialiased d-flex flex-column ">
+    <div class="page">
+        <x-header combine="0" sticky="1" overlap="0" vheader="0" />
 
-                <div class="page-body">
-                    {{ $slot }}
-                </div>
+        <div class="page-wrapper">
+            <x-page-title :title="$title ?? ''" :pretitle="$pretitle ?? ''" :actions="$actions ?? ''" :subtitle="$subtitle ?? ''" />
 
-                <x-footer />
+            <div class="page-body">
+                {{ $slot }}
             </div>
 
+            <x-footer />
         </div>
-        <x-scripts :js="$js ?? ''" />
 
-        @livewireScripts
-    </body>
+    </div>
+    <x-scripts :js="$js ?? ''" />
+
+    @livewireScripts
+
+</body>
+
 </html>

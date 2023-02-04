@@ -43,11 +43,6 @@ class CreateNewUser implements CreatesNewUsers
         if (isset($input['avatar'])) {
             $input['avatar'] = (new UserAvatar)->upload($input['avatar']);
         }
-
-        Role::create([
-            'name' => $input['name'],
-            'redirect_to' => '/home',
-        ]);
         return User::create([
             'name' => $input['name'],
             'email' => $input['email'],

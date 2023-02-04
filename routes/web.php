@@ -3,18 +3,18 @@
 use App\Http\Livewire\Dashboard;
 use App\Http\Livewire\Page2;
 use App\Http\Livewire\Profile\Profile;
+use App\Http\Livewire\Siswa\Siswa;
 use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', Dashboard::class);
-Route::get('/home', Dashboard::class);
-Route::group(['middleware' => ['auth', 'role:user', 'role:admin', 'verified']], function () {
+Route::group(['middleware' => ['auth', 'role:admin && user', 'verified']], function () {
     Route::get('/page2', Page2::class);
     Route::get('/profile', Profile::class)->name('profile');
 });
 
 Route::group(['middleware' => ['auth', 'role:admin', 'verified']], function () {
-
+    Route::get('/siswa', Siswa::class);
     // -----------------------------------------------------------------------------------------------------------------
     //  Profile related routes
     // -----------------------------------------------------------------------------------------------------------------
