@@ -32,5 +32,5 @@ class User extends Component
             return $this->currentPage;
         });
     }
-    
+
 }
