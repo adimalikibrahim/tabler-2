@@ -24,7 +24,8 @@
                     <input type="password" name="password" required autocomplete="new-password" class="form-control"
                         placeholder="{{ __('auth.placeholder.password') }}" tabindex="4">
                     <span class="input-group-text">
-                        <a href="#" class="link-secondary" title="Show password" data-toggle="tooltip"><svg
+                        <a href="#" class="link-secondary" title="Show password" data-toggle="tooltip">
+                            <svg
                                 xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
                                 stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
                                 stroke-linejoin="round">
@@ -43,10 +44,10 @@
                     class="form-control" placeholder="{{ __('auth.placeholder.password_confirmation') }}" tabindex="5">
             </div>
 
-            <div class="form-footer">
+            {{-- <div class="form-footer">
                 <button type="submit" class="btn btn-primary btn-block"
                     tabindex="6">{{ __('auth.register_button') }}</button>
-            </div>
+            </div> --}}
 
         </div>
 

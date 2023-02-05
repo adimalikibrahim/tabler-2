@@ -17,11 +17,11 @@ class RoleSeeder extends Seeder
         $roles = [
             [
                 'name' => 'admin',
-                'redirect_to' => '/admin'
+                'redirect_to' => '/'
             ],
             [
                 'name' => 'user',
-                'redirect_to' => '/home'
+                'redirect_to' => '/'
             ],
         ];
 

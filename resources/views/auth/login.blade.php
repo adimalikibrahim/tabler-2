@@ -71,11 +71,11 @@
         </div>
     </form>
 
-    @if (Route::has('register'))
+    {{-- @if (Route::has('register'))
         <div class="text-center text-muted mt-3">
             {{ __('auth.placeholder.dont_have_account') }} <a href="{{ route('register') }}" tabindex="-1">
                 {{ __('auth.create_account') }}
             </a>
         </div>
-    @endif
+    @endif --}}
 </x-layouts.auth>
