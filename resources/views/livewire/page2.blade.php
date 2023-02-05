@@ -15,7 +15,9 @@
                             <tr>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
+                                <td>{{ $user->role->name }}</td>
                             </tr>
+
                             @endforeach
                         </tbody>
                     </table>

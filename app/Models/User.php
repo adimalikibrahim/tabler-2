@@ -80,4 +80,9 @@ class User extends Authenticatable
 
         return $default;
     }
+    public function role()
+    {
+        return $this->hasOne(Role::class, 'id', 'role_id');
+    }
+
 }
